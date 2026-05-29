@@ -8,7 +8,7 @@ const DATA = {
   availableForWork: true,
   socials: [
     { label: "LinkedIn", icon: "in", url: "https://linkedin.com/in/antonschindler", color: "rgba(10,102,194,0.10)", border: "rgba(10,102,194,0.28)", text: "#1d4ed8" },
-    { label: "GitHub",   icon: "GH", url: "https://github.com/antonschindler",     color: "rgba(30,30,30,0.08)",   border: "rgba(30,30,30,0.18)",  text: "#1e293b" },
+    { label: "GitHub",   icon: "GH", url: "https://github.com/antonymxix",     color: "rgba(30,30,30,0.08)",   border: "rgba(30,30,30,0.18)",  text: "#1e293b" },
   ],
   techStack: [
     { category: "AI & Machine Learning", color: "#7c3aed", glow: "rgba(124,58,237,0.13)", border: "rgba(124,58,237,0.22)", icon: "◈", items: ["Python","Scikit-learn", "Pandas", "NumPy", "Jupyter"] },
