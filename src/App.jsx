@@ -17,8 +17,15 @@ const DATA = {
     { category: "Kreativ & Design",      color: "#ec4899", glow: "rgba(236,72,153,0.13)",  border: "rgba(236,72,153,0.22)",  icon: "⟁", items: ["Photoshop", "Illustrator", "Premiere Pro", "After Effects", "Lightroom","Framer"] },
   ],
   skills: ["Python", "Pandas", "Machine Learning", "C++", "Assembler", "SQL", "Framer", "React", "Jupyter"],
+
   projects: [
-    { title: "Aura Finance",  bgA: "rgba(167,139,250,0.45)", bgB: "rgba(99,102,241,0.35)", icon: "◈", year: "2024", status: "wip",  progress: null },
+    {
+      title: "ScentExplorer AI",
+      bgA: "rgba(167,139,250,0.45)", bgB: "rgba(99,102,241,0.35)",
+      icon: "◈", year: "2025", status: "live", progress: null,
+      projectUrl: "https://project01---perfumemap-z4kwssgxnne7u72wznh2xu.streamlit.app/", // <- URL hier eintragen
+      description: "Designer Fragrance Map powered by Sentence Transformers & PCA",
+    },
     { title: "Helix OS",      bgA: "rgba(251,113,133,0.40)", bgB: "rgba(236,72,153,0.30)", icon: "⬡", year: "2024", status: "soon", progress: null },
     { title: "Solaris Brand", bgA: "rgba(251,191,36,0.42)",  bgB: "rgba(251,146,60,0.32)", icon: "◉", year: "2023", status: "soon", progress: null },
   ],
@@ -31,9 +38,9 @@ const TRANSLATIONS = {
     about: "Ich entwickle intelligente Lösungen – vom Low-Level Code bis zum User Interface.\nAls Student der KI & Data Science (B.Sc.) kombiniere ich tiefgehendes technisches Verständnis mit moderner Datenanalyse. Mein Spektrum reicht von hardwarenaher Programmierung in Assembler und C++ bis hin zur Entwicklung datengestützter Anwendungen mit Python, Pandas und Machine Learning.\nIch glaube, dass komplexe Daten eine intuitive Form brauchen. Deshalb nutze ich meine Erfahrung in React, JavaScript und Design-Tools wie Framer, um performante Web-Interfaces zu schaffen, die Ästhetik und Funktionalität vereinen. Kurzum: Ich bringe Logik in Form.",
     location: "Regensburg, Deutschland",
     contact: "Kontakt aufnehmen ↗", role: "Rolle", socials: "Socials", techStack: "Tech Stack", skills: "Skills & Tools",
-    projects: "Ausgewählte Projekte", viewProject: "Projekt ansehen ↗",
-    projectCategories: ["Product Design", "Interface Design", "Brand Identity"],
-    statusWip: "In Arbeit", statusSoon: "Bald verfügbar", progressLabel: "läuft",
+    projects: "Ausgewählte Projekte", viewProject: "Projekt öffnen ↗",
+    projectCategories: ["Data Science", "Interface Design", "Brand Identity"],
+    statusWip: "In Arbeit", statusSoon: "Bald verfügbar", statusLive: "Live", progressLabel: "läuft",
   },
   en: {
     techCategories: ["AI & Machine Learning", "Data & Analytics", "Low-Level & Systems", "Creative & Design"],
@@ -41,9 +48,9 @@ const TRANSLATIONS = {
     about: "I build intelligent solutions – from low-level code to user interface.\nAs a B.Sc. student in AI & Data Science, I combine deep technical understanding with modern data analysis. My spectrum ranges from hardware-level programming in Assembler and C++ to building data-driven applications with Python, Pandas and Machine Learning.\nI believe complex data needs an intuitive form. That's why I leverage my experience in React, JavaScript and design tools like Framer to create performant web interfaces that unite aesthetics and functionality. In short: I bring logic into shape.",
     location: "Regensburg, Germany",
     contact: "Get in touch ↗", role: "Role", socials: "Socials", techStack: "Tech Stack", skills: "Skills & Tools",
-    projects: "Selected Projects", viewProject: "View Project ↗",
-    projectCategories: ["Product Design", "Interface Design", "Brand Identity"],
-    statusWip: "In progress", statusSoon: "Coming soon", progressLabel: "in progress",
+    projects: "Selected Projects", viewProject: "Open project ↗",
+    projectCategories: ["Data Science", "Interface Design", "Brand Identity"],
+    statusWip: "In progress", statusSoon: "Coming soon", statusLive: "Live", progressLabel: "in progress",
   },
 };
 
@@ -329,6 +336,7 @@ const ProjectCard = ({ project, category, delay }) => {
   const [visible, setVisible] = useState(false);
   const isWip   = project.status === "wip";
   const isSoon  = project.status === "soon";
+  const isLive  = project.status === "live";
   const isLocked = isWip || isSoon;
 
   useEffect(() => {
@@ -338,17 +346,22 @@ const ProjectCard = ({ project, category, delay }) => {
     }
   }, [inView, delay]);
 
+  const handleClick = () => {
+    if (isLive && project.projectUrl) window.open(project.projectUrl, "_blank", "noopener,noreferrer");
+  };
+
   return (
     <div
       ref={ref}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onClick={handleClick}
       style={{
         ...GLASS,
         position: "relative",
         overflow: "hidden",
         width: "100%",
-        cursor: "pointer",
+        cursor: isLive ? "pointer" : "default",
         opacity: visible ? 1 : 0,
         transform: hovered ? "scale(1.022)" : "scale(1)",
         transition: `opacity 0.55s ease ${delay * 0.08}s, transform 0.3s cubic-bezier(0.22,1,0.36,1)`,
@@ -372,7 +385,7 @@ const ProjectCard = ({ project, category, delay }) => {
           </div>
         )}
 
-        {!isLocked && (
+        {isLive && (
           <AnimatePresence>
             {hovered && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}
@@ -407,6 +420,13 @@ const ProjectCard = ({ project, category, delay }) => {
             style={{ background: "rgba(52,211,153,0.11)", border: "1px solid rgba(52,211,153,0.28)", color: "#059669" }}>
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping inline-block" />
             {t.statusWip}
+          </span>
+        )}
+        {isLive && (
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold"
+            style={{ background: "rgba(124,58,237,0.09)", border: "1px solid rgba(124,58,237,0.22)", color: "#7c3aed" }}>
+            <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "#7c3aed" }} />
+            {t.statusLive}
           </span>
         )}
         {isSoon && (
