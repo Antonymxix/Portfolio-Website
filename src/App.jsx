@@ -11,12 +11,47 @@ const DATA = {
     { label: "GitHub",   icon: "GH", url: "https://github.com/antonymxix",     color: "rgba(30,30,30,0.08)",   border: "rgba(30,30,30,0.18)",  text: "#1e293b" },
   ],
   techStack: [
-    { category: "AI & Machine Learning", color: "#7c3aed", glow: "rgba(124,58,237,0.13)", border: "rgba(124,58,237,0.22)", icon: "◈", items: ["Python","Scikit-learn", "Pandas", "NumPy", "Jupyter"] },
-    { category: "Data & Analytics",      color: "#0ea5e9", glow: "rgba(14,165,233,0.13)",  border: "rgba(14,165,233,0.22)",  icon: "⬡", items: ["SQL", "Excel"] },
+    { category: "AI & Machine Learning", color: "#7c3aed", glow: "rgba(124,58,237,0.13)", border: "rgba(124,58,237,0.22)", icon: "◈", items: ["Python","Scikit-learn", "Pandas", "NumPy", "Jupyter","API","Cursor"] },
+    { category: "Data & Analytics",      color: "#0ea5e9", glow: "rgba(14,165,233,0.13)",  border: "rgba(14,165,233,0.22)",  icon: "⬡", items: ["SQL", "Excel","Data Management","Pyscipopt"] },
     { category: "Low-Level & Systems",   color: "#f59e0b", glow: "rgba(245,158,11,0.13)",  border: "rgba(245,158,11,0.22)",  icon: "◉", items: ["C++", "C", "Assembler (x86)", "Linux", "Git"] },
-    { category: "Kreativ & Design",      color: "#ec4899", glow: "rgba(236,72,153,0.13)",  border: "rgba(236,72,153,0.22)",  icon: "⟁", items: ["Photoshop", "Illustrator", "Premiere Pro", "After Effects", "Lightroom","Framer"] },
+    { category: "Kreativ & Design",      color: "#ec4899", glow: "rgba(236,72,153,0.13)",  border: "rgba(236,72,153,0.22)",  icon: "⟁", items: ["Photoshop", "Illustrator", "Premiere Pro", "After Effects", "Lightroom","Framer","Notion","Figma"] },
   ],
-  skills: ["Python", "Pandas", "Machine Learning", "C++", "Assembler", "SQL", "Framer", "React", "Jupyter"],
+
+  timeline: [
+    {
+      key: "projekt29",
+      icon: "◆", color: "#0ea5e9",
+      period: { de: "Sept. 2022 – Jan. 2023 · 5 Monate", en: "Sep 2022 – Jan 2023 · 5 months" },
+      title: { de: "Praktikant – C/C# Entwicklung", en: "Intern – C/C# Development" },
+      org: "Projekt29 GmbH", place: "Regensburg",
+      current: false,
+    },
+    {
+      key: "fos",
+      icon: "▲", color: "#f59e0b",
+      period: { de: "Abschluss 2024", en: "Graduated 2024" },
+      title: { de: "Fachabitur – Wirtschaft & Verwaltung", en: "High School Diploma – Business & Administration" },
+      org: "FOS", place: "",
+      current: false,
+    },
+    {
+      key: "studium",
+      icon: "◉", color: "#7c3aed",
+      period: { de: "Seit Okt. 2024", en: "Since Oct 2024" },
+      title: { de: "B.Sc. KI & Data Science", en: "B.Sc. AI & Data Science" },
+      org: "OTH Regensburg", place: "",
+      current: true,
+    },
+    {
+      key: "maloon",
+      icon: "■", color: "#ec4899",
+      period: { de: "Seit 10.08.2026", en: "Since Aug 10, 2026" },
+      title: { de: "Praktikant – DevOps AI Team", en: "Intern – DevOps AI Team" },
+      org: "Maloon · SocialHub", place: "",
+      note: { de: "neben dem Studium", en: "alongside my studies" },
+      current: true,
+    },
+  ],
 
   projects: [
     {
@@ -26,8 +61,8 @@ const DATA = {
       projectUrl: "https://project01---perfumemap-z4kwssgxnne7u72wznh2xu.streamlit.app/", // <- URL hier eintragen
       description: "Designer Fragrance Map powered by Sentence Transformers & PCA",
     },
-    { title: "Helix OS",      bgA: "rgba(251,113,133,0.40)", bgB: "rgba(236,72,153,0.30)", icon: "⬡", year: "2024", status: "soon", progress: null },
-    { title: "Solaris Brand", bgA: "rgba(251,191,36,0.42)",  bgB: "rgba(251,146,60,0.32)", icon: "◉", year: "2023", status: "soon", progress: null },
+    { title: "AI Video Generation Pipeline(BETA)",      bgA: "rgba(251,113,133,0.40)", bgB: "rgba(236,72,153,0.30)", icon: "⬡", year: "2024", status: "soon", progress: null },
+    { title: "AI Phone Assistant with UI", bgA: "rgba(251,191,36,0.42)",  bgB: "rgba(251,146,60,0.32)", icon: "◉", year: "2023", status: "soon", progress: null },
   ],
 };
 
@@ -35,19 +70,21 @@ const TRANSLATIONS = {
   de: {
     techCategories: ["AI & Machine Learning", "Data & Analytics", "Low-Level & Systems", "Kreativ & Design"],
     status: "Verfügbar für Projekte",
-    about: "Ich entwickle intelligente Lösungen – vom Low-Level Code bis zum User Interface.\nAls Student der KI & Data Science (B.Sc.) kombiniere ich tiefgehendes technisches Verständnis mit moderner Datenanalyse. Mein Spektrum reicht von hardwarenaher Programmierung in Assembler und C++ bis hin zur Entwicklung datengestützter Anwendungen mit Python, Pandas und Machine Learning.\nIch glaube, dass komplexe Daten eine intuitive Form brauchen. Deshalb nutze ich meine Erfahrung in React, JavaScript und Design-Tools wie Framer, um performante Web-Interfaces zu schaffen, die Ästhetik und Funktionalität vereinen. Kurzum: Ich bringe Logik in Form.",
+    about: "Ich studiere KI & Data Science in Regensburg und beschäftige mich am liebsten mit Dingen, die irgendwo zwischen Hardware und Interface liegen – von Assembler bis Machine Learning ist bei mir eigentlich alles dabei.\nAngefangen hat das mit Low-Level-Programmierung in C++ und Assembler, mittlerweile arbeite ich genauso gerne mit Python, Pandas und ML-Modellen, um aus Daten tatsächlich etwas Brauchbares zu machen.\nNebenbei baue ich Interfaces mit React und Framer – nicht weil es dazugehört, sondern weil ich es mag, wenn am Ende ein fertiges Produkt rauskommt und nicht nur ein Notebook voller Ergebnisse.",
     location: "Regensburg, Deutschland",
-    contact: "Kontakt aufnehmen ↗", role: "Rolle", socials: "Socials", techStack: "Tech Stack", skills: "Skills & Tools",
+    contact: "Kontakt aufnehmen ↗", role: "Rolle", socials: "Socials", techStack: "Tech Stack",
+    timelineTitle: "Werdegang", currentLabel: "Aktuell",
     projects: "Ausgewählte Projekte", viewProject: "Projekt öffnen ↗",
-    projectCategories: ["Data Science", "Interface Design", "Brand Identity"],
+    projectCategories: ["Data Science", "AI/API Pipeline", "AI Phone Assistant"],
     statusWip: "In Arbeit", statusSoon: "Bald verfügbar", statusLive: "Live", progressLabel: "läuft",
   },
   en: {
     techCategories: ["AI & Machine Learning", "Data & Analytics", "Low-Level & Systems", "Creative & Design"],
     status: "Available for projects",
-    about: "I build intelligent solutions – from low-level code to user interface.\nAs a B.Sc. student in AI & Data Science, I combine deep technical understanding with modern data analysis. My spectrum ranges from hardware-level programming in Assembler and C++ to building data-driven applications with Python, Pandas and Machine Learning.\nI believe complex data needs an intuitive form. That's why I leverage my experience in React, JavaScript and design tools like Framer to create performant web interfaces that unite aesthetics and functionality. In short: I bring logic into shape.",
+    about: "I'm studying AI & Data Science in Regensburg, and I'm most drawn to the stuff that sits between hardware and interface — everything from Assembler to machine learning ends up on my plate at some point.\nIt started with low-level programming in C++ and Assembler; these days I work just as much with Python, Pandas and ML models to actually turn data into something useful.\nOn the side I build interfaces with React and Framer — not because it's expected, but because I like seeing a finished product come out the other end, not just a notebook full of results.",
     location: "Regensburg, Germany",
-    contact: "Get in touch ↗", role: "Role", socials: "Socials", techStack: "Tech Stack", skills: "Skills & Tools",
+    contact: "Get in touch ↗", role: "Role", socials: "Socials", techStack: "Tech Stack",
+    timelineTitle: "Journey", currentLabel: "Ongoing",
     projects: "Selected Projects", viewProject: "Open project ↗",
     projectCategories: ["Data Science", "Interface Design", "Brand Identity"],
     statusWip: "In progress", statusSoon: "Coming soon", statusLive: "Live", progressLabel: "in progress",
@@ -304,24 +341,64 @@ const TechStack = () => {
   );
 };
 
-const Skills = () => {
+const Timeline = () => {
   const t = useLang();
+  const lang = useContext(LangContext);
   const [ref, inView] = useScrollReveal();
   return (
     <GlassCard className="col-span-12 md:col-span-7" delay={0} hover={false}>
-      <div className="p-9">
-        <p className="text-xs uppercase tracking-widest text-slate-400 font-semibold mb-6">{t.skills}</p>
-        <div ref={ref} className="flex flex-wrap gap-2.5">
-          {DATA.skills.map((skill, i) => (
-            <motion.span key={skill}
-              initial={{ opacity: 0, scale: 0.7, y: 8 }} animate={inView ? { opacity: 1, scale: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.055, duration: 0.45 }}
-              whileHover={{ scale: 1.08 }}
-              className="px-4 py-1.5 rounded-full text-sm font-medium cursor-default select-none"
-              style={{ background: "rgba(148,163,184,0.12)", border: "1px solid rgba(148,163,184,0.25)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.8), 0 2px 6px rgba(0,0,0,0.04)", color: "#475569" }}>
-              {skill}
-            </motion.span>
-          ))}
+      <div className="p-9" ref={ref}>
+        <p className="text-xs uppercase tracking-widest text-slate-400 font-semibold mb-7">
+          <AnimatePresence mode="wait">
+            <motion.span key={t.timelineTitle} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>{t.timelineTitle}</motion.span>
+          </AnimatePresence>
+        </p>
+        <div className="relative flex flex-col">
+          {DATA.timeline.map((item, i) => {
+            const isLast = i === DATA.timeline.length - 1;
+            const subtitle = [item.org, item.place].filter(Boolean).join(" · ");
+            const noteText = item.note ? item.note[lang] : null;
+            return (
+              <motion.div key={item.key}
+                variants={{ hidden: { opacity: 0, x: -14 }, visible: { opacity: 1, x: 0, transition: { duration: 0.5, delay: i * 0.09 } } }}
+                initial="hidden" animate={inView ? "visible" : "hidden"}
+                className="relative flex gap-4 pb-7 last:pb-0">
+                {!isLast && (
+                  <div className="absolute left-[15px] top-8 bottom-0 w-px"
+                    style={{ background: "linear-gradient(180deg, rgba(148,163,184,0.35), rgba(148,163,184,0.10))" }} />
+                )}
+                <div className="relative flex-shrink-0 w-8 h-8 rounded-xl flex items-center justify-center text-sm"
+                  style={{ background: `${item.color}14`, border: `1px solid ${item.color}30`, color: item.color, boxShadow: item.current ? `0 0 0 4px ${item.color}12` : "none" }}>
+                  {item.icon}
+                  {item.current && (
+                    <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-70" style={{ background: item.color }} />
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5" style={{ background: item.color }} />
+                    </span>
+                  )}
+                </div>
+                <div className="flex-1 min-w-0 pt-0.5">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-[11px] uppercase tracking-wide font-semibold" style={{ color: item.color }}>{item.period[lang]}</span>
+                    {item.current && (
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold"
+                        style={{ background: `${item.color}14`, color: item.color, border: `1px solid ${item.color}30` }}>
+                        {t.currentLabel}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-sm font-bold text-slate-800 mt-1">{item.title[lang]}</p>
+                  {(subtitle || noteText) && (
+                    <p className="text-xs text-slate-500 mt-0.5">
+                      {subtitle}
+                      {subtitle && noteText ? " — " : ""}
+                      {noteText}
+                    </p>
+                  )}
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </GlassCard>
@@ -490,7 +567,7 @@ export default function Portfolio() {
         <div className="fixed top-5 right-5 z-50"><LangToggle lang={lang} setLang={setLang} /></div>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20 space-y-4">
           <div className="grid grid-cols-12 gap-4"><Hero /><TaglineCard /></div>
-          <div className="grid grid-cols-12 gap-4"><TechStack /><Skills /></div>
+          <div className="grid grid-cols-12 gap-4"><TechStack /><Timeline /></div>
           <div className="grid grid-cols-12 gap-4"><Projects /></div>
           <div className="grid grid-cols-12 gap-4"><FooterCard /></div>
         </div>
