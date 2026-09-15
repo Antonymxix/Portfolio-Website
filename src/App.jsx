@@ -1,5 +1,10 @@
 import { useState, useEffect, useRef, createContext, useContext } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import {
+  Brain, BarChart3, Cpu, Palette,
+  Code2, GraduationCap, School, Briefcase,
+  FlaskConical, Clapperboard, Phone,
+} from "lucide-react";
 
 const DATA = {
   name: "Anton Schindler",
@@ -11,16 +16,16 @@ const DATA = {
     { label: "GitHub",   icon: "GH", url: "https://github.com/antonymxix",     color: "rgba(30,30,30,0.08)",   border: "rgba(30,30,30,0.18)",  text: "#1e293b" },
   ],
   techStack: [
-    { category: "AI & Machine Learning", color: "#7c3aed", glow: "rgba(124,58,237,0.13)", border: "rgba(124,58,237,0.22)", icon: "◈", items: ["Python","Scikit-learn", "Pandas", "NumPy", "Jupyter","API","Cursor"] },
-    { category: "Data & Analytics",      color: "#0ea5e9", glow: "rgba(14,165,233,0.13)",  border: "rgba(14,165,233,0.22)",  icon: "⬡", items: ["SQL", "Excel","Data Management","Pyscipopt"] },
-    { category: "Low-Level & Systems",   color: "#f59e0b", glow: "rgba(245,158,11,0.13)",  border: "rgba(245,158,11,0.22)",  icon: "◉", items: ["C++", "C", "Assembler (x86)", "Linux", "Git"] },
-    { category: "Kreativ & Design",      color: "#ec4899", glow: "rgba(236,72,153,0.13)",  border: "rgba(236,72,153,0.22)",  icon: "⟁", items: ["Photoshop", "Illustrator", "Premiere Pro", "After Effects", "Lightroom","Framer","Notion","Figma"] },
+    { category: "AI & Machine Learning", color: "#7c3aed", glow: "rgba(124,58,237,0.13)", border: "rgba(124,58,237,0.22)", icon: Brain, items: ["Python","Scikit-learn", "Pandas", "NumPy", "Jupyter","API","Cursor"] },
+    { category: "Data & Analytics",      color: "#0ea5e9", glow: "rgba(14,165,233,0.13)",  border: "rgba(14,165,233,0.22)",  icon: BarChart3, items: ["SQL", "Excel","Data Management","Pyscipopt"] },
+    { category: "Low-Level & Systems",   color: "#f59e0b", glow: "rgba(245,158,11,0.13)",  border: "rgba(245,158,11,0.22)",  icon: Cpu, items: ["C++", "C", "Assembler (x86)", "Linux", "Git"] },
+    { category: "Kreativ & Design",      color: "#ec4899", glow: "rgba(236,72,153,0.13)",  border: "rgba(236,72,153,0.22)",  icon: Palette, items: ["Photoshop", "Illustrator", "Premiere Pro", "After Effects", "Lightroom","Framer","Notion","Figma"] },
   ],
 
   timeline: [
     {
       key: "projekt29",
-      icon: "◆", color: "#0ea5e9",
+      icon: Code2, color: "#0ea5e9",
       period: { de: "Sept. 2022 – Jan. 2023 · 5 Monate", en: "Sep 2022 – Jan 2023 · 5 months" },
       title: { de: "Praktikant – C/C# Entwicklung", en: "Intern – C/C# Development" },
       org: "Projekt29 GmbH", place: "Regensburg",
@@ -28,7 +33,7 @@ const DATA = {
     },
     {
       key: "fos",
-      icon: "▲", color: "#f59e0b",
+      icon: School, color: "#f59e0b",
       period: { de: "Abschluss 2024", en: "Graduated 2024" },
       title: { de: "Fachabitur – Wirtschaft & Verwaltung", en: "High School Diploma – Business & Administration" },
       org: "FOS", place: "",
@@ -36,7 +41,7 @@ const DATA = {
     },
     {
       key: "studium",
-      icon: "◉", color: "#7c3aed",
+      icon: GraduationCap, color: "#7c3aed",
       period: { de: "Seit Okt. 2024", en: "Since Oct 2024" },
       title: { de: "B.Sc. KI & Data Science", en: "B.Sc. AI & Data Science" },
       org: "OTH Regensburg", place: "",
@@ -44,7 +49,7 @@ const DATA = {
     },
     {
       key: "maloon",
-      icon: "■", color: "#ec4899",
+      icon: Briefcase, color: "#ec4899",
       period: { de: "Seit 10.08.2026", en: "Since Aug 10, 2026" },
       title: { de: "Praktikant – DevOps AI Team", en: "Intern – DevOps AI Team" },
       org: "Maloon · SocialHub", place: "",
@@ -57,12 +62,12 @@ const DATA = {
     {
       title: "ScentExplorer AI",
       bgA: "rgba(167,139,250,0.45)", bgB: "rgba(99,102,241,0.35)",
-      icon: "◈", year: "2025", status: "live", progress: null,
+      icon: FlaskConical, year: "2025", status: "live", progress: null,
       projectUrl: "https://project01---perfumemap-z4kwssgxnne7u72wznh2xu.streamlit.app/", // <- URL hier eintragen
       description: "Designer Fragrance Map powered by Sentence Transformers & PCA",
     },
-    { title: "AI Video Generation Pipeline(BETA)",      bgA: "rgba(251,113,133,0.40)", bgB: "rgba(236,72,153,0.30)", icon: "⬡", year: "2024", status: "soon", progress: null },
-    { title: "AI Phone Assistant with UI", bgA: "rgba(251,191,36,0.42)",  bgB: "rgba(251,146,60,0.32)", icon: "◉", year: "2023", status: "soon", progress: null },
+    { title: "AI Video Generation Pipeline(BETA)",      bgA: "rgba(251,113,133,0.40)", bgB: "rgba(236,72,153,0.30)", icon: Clapperboard, year: "2024", status: "soon", progress: null },
+    { title: "AI Phone Assistant with UI", bgA: "rgba(251,191,36,0.42)",  bgB: "rgba(251,146,60,0.32)", icon: Phone, year: "2023", status: "soon", progress: null },
   ],
 };
 
@@ -70,7 +75,7 @@ const TRANSLATIONS = {
   de: {
     techCategories: ["AI & Machine Learning", "Data & Analytics", "Low-Level & Systems", "Kreativ & Design"],
     status: "Verfügbar für Projekte",
-    about: "Ich studiere KI & Data Science in Regensburg und beschäftige mich am liebsten mit Dingen, die irgendwo zwischen Hardware und Interface liegen – von Assembler bis Machine Learning ist bei mir eigentlich alles dabei.\nAngefangen hat das mit Low-Level-Programmierung in C++ und Assembler, mittlerweile arbeite ich genauso gerne mit Python, Pandas und ML-Modellen, um aus Daten tatsächlich etwas Brauchbares zu machen.\nNebenbei baue ich Interfaces mit React und Framer – nicht weil es dazugehört, sondern weil ich es mag, wenn am Ende ein fertiges Produkt rauskommt und nicht nur ein Notebook voller Ergebnisse.",
+    about: "Ich studiere KI & Data Science in Regensburg – am meisten reizt mich das, was zwischen Hardware und Interface liegt, von Assembler bis Machine Learning.\nAngefangen hab ich mit C++ und etwas Assembler, mittlerweile sitze ich genauso oft an Python, Pandas und ML-Modellen und versuche, aus Daten etwas zu bauen, das wirklich brauchbar ist.\nNebenbei baue ich auch Interfaces mit React und Framer – einfach weil ich's mag, wenn am Ende ein fertiges Ding steht und nicht nur ein Notebook voller Ergebnisse.",
     location: "Regensburg, Deutschland",
     contact: "Kontakt aufnehmen ↗", role: "Rolle", socials: "Socials", techStack: "Tech Stack",
     timelineTitle: "Werdegang", currentLabel: "Aktuell",
@@ -81,7 +86,7 @@ const TRANSLATIONS = {
   en: {
     techCategories: ["AI & Machine Learning", "Data & Analytics", "Low-Level & Systems", "Creative & Design"],
     status: "Available for projects",
-    about: "I'm studying AI & Data Science in Regensburg, and I'm most drawn to the stuff that sits between hardware and interface — everything from Assembler to machine learning ends up on my plate at some point.\nIt started with low-level programming in C++ and Assembler; these days I work just as much with Python, Pandas and ML models to actually turn data into something useful.\nOn the side I build interfaces with React and Framer — not because it's expected, but because I like seeing a finished product come out the other end, not just a notebook full of results.",
+    about: "I'm studying AI & Data Science in Regensburg — what pulls me in most is whatever sits between hardware and interface, from Assembler to machine learning.\nI started out with C++ and a bit of Assembler; these days I spend just as much time in Python, Pandas and ML models, trying to turn data into something actually useful.\nOn the side I also build interfaces with React and Framer, mostly because I like it when something real comes out the other end, not just a notebook full of numbers.",
     location: "Regensburg, Germany",
     contact: "Get in touch ↗", role: "Role", socials: "Socials", techStack: "Tech Stack",
     timelineTitle: "Journey", currentLabel: "Ongoing",
@@ -316,8 +321,8 @@ const TechStack = () => {
               whileHover={{ x: 3 }} whileTap={{ scale: 0.98 }}
               className="relative flex items-center gap-3 px-4 py-3 rounded-2xl text-left transition-all duration-300 cursor-pointer"
               style={{ background: active === i ? c.glow : "rgba(255,255,255,0.50)", border: `1px solid ${active === i ? c.border : "rgba(200,200,220,0.35)"}`, boxShadow: active === i ? `0 2px 16px ${c.glow}` : "none" }}>
-              <motion.span animate={{ scale: active === i ? 1.15 : 1, rotate: active === i ? 12 : 0 }} transition={{ duration: 0.35 }}
-                className="text-base select-none flex-shrink-0" style={{ color: active === i ? c.color : "#94a3b8" }}>{c.icon}</motion.span>
+              <motion.span animate={{ scale: active === i ? 1.15 : 1, rotate: active === i ? 8 : 0 }} transition={{ duration: 0.35 }}
+                className="inline-flex flex-shrink-0" style={{ color: active === i ? c.color : "#94a3b8" }}><c.icon size={18} strokeWidth={2.3} /></motion.span>
               <span className="text-sm font-semibold transition-colors duration-200" style={{ color: active === i ? c.color : "#64748b" }}>{t.techCategories[i]}</span>
               {active === i && <motion.div layoutId="cat-indicator" className="ml-auto w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: c.color }} transition={{ duration: 0.3 }} />}
             </motion.button>
@@ -369,7 +374,7 @@ const Timeline = () => {
                 )}
                 <div className="relative flex-shrink-0 w-8 h-8 rounded-xl flex items-center justify-center text-sm"
                   style={{ background: `${item.color}14`, border: `1px solid ${item.color}30`, color: item.color, boxShadow: item.current ? `0 0 0 4px ${item.color}12` : "none" }}>
-                  {item.icon}
+                  <item.icon size={16} strokeWidth={2.3} />
                   {item.current && (
                     <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-70" style={{ background: item.color }} />
@@ -446,12 +451,11 @@ const ProjectCard = ({ project, category, delay }) => {
     >
       <div className="relative h-52 flex items-center justify-center"
         style={{ background: `linear-gradient(135deg, ${project.bgA}, ${project.bgB})`, overflow: "hidden" }}>
-        <motion.span
-          animate={{ scale: hovered && !isLocked ? 1.2 : 1, rotate: hovered && !isLocked ? 15 : 0, opacity: isLocked ? 0.35 : 0.70 }}
+        <motion.div
+          animate={{ scale: hovered && !isLocked ? 1.15 : 1, rotate: hovered && !isLocked ? 8 : 0, opacity: isLocked ? 0.45 : 0.85 }}
           transition={{ duration: 0.5 }}
-          className="text-7xl select-none"
-          style={{ filter: isLocked ? "blur(1px)" : "none" }}
-        >{project.icon}</motion.span>
+          style={{ filter: isLocked ? "blur(1px)" : "none", color: "rgba(255,255,255,0.95)" }}
+        ><project.icon size={64} strokeWidth={1.5} /></motion.div>
 
         {isLocked && (
           <div className="absolute inset-0 flex items-center justify-center" style={{ background: "rgba(10,10,20,0.32)" }}>
