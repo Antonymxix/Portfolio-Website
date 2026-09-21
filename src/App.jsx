@@ -4,6 +4,7 @@ import {
   Brain, BarChart3, Cpu, Palette,
   Code2, GraduationCap, School, Briefcase,
   FlaskConical, Clapperboard, Phone,
+  Sparkles, Mic, Video, ArrowRight,
 } from "lucide-react";
 
 const DATA = {
@@ -66,8 +67,14 @@ const DATA = {
       projectUrl: "https://project01---perfumemap-z4kwssgxnne7u72wznh2xu.streamlit.app/", // <- URL hier eintragen
       description: "Designer Fragrance Map powered by Sentence Transformers & PCA",
     },
-    { title: "AI Video Generation Pipeline(BETA)",      bgA: "rgba(251,113,133,0.40)", bgB: "rgba(236,72,153,0.30)", icon: Clapperboard, year: "2024", status: "soon", progress: null },
-    { title: "AI Phone Assistant with UI", bgA: "rgba(251,191,36,0.42)",  bgB: "rgba(251,146,60,0.32)", icon: Phone, year: "2023", status: "soon", progress: null },
+    {
+      title: "AI Video Generation Pipeline",
+      bgA: "rgba(251,113,133,0.40)", bgB: "rgba(236,72,153,0.30)",
+      visual: "pipeline", year: "2024", status: "demo", progress: null,
+      videoUrl: "/videos/pipeline-demo.mp4",
+      description: "Autonome Content-Pipeline für Kurzvideos – Thema: warum Social Media für Unternehmen extrem wichtig ist",
+    },
+    { title: "AI Phone Assistant with UI", bgA: "rgba(251,191,36,0.42)",  bgB: "rgba(251,146,60,0.32)", icon: Phone, year: "2023", status: "paused", progress: null },
   ],
 };
 
@@ -79,9 +86,9 @@ const TRANSLATIONS = {
     location: "Regensburg, Deutschland",
     contact: "Kontakt aufnehmen ↗", role: "Rolle", socials: "Socials", techStack: "Tech Stack",
     timelineTitle: "Werdegang", currentLabel: "Aktuell",
-    projects: "Ausgewählte Projekte", viewProject: "Projekt öffnen ↗",
+    projects: "Ausgewählte Projekte", viewProject: "Projekt öffnen ↗", watchVideo: "Video ansehen ▶",
     projectCategories: ["Data Science", "AI/API Pipeline", "AI Phone Assistant"],
-    statusWip: "In Arbeit", statusSoon: "Bald verfügbar", statusLive: "Live", progressLabel: "läuft",
+    statusWip: "In Arbeit", statusSoon: "Bald verfügbar", statusLive: "Live", statusPaused: "Pausiert – validiert", statusDemo: "Video-Demo", progressLabel: "läuft",
   },
   en: {
     techCategories: ["AI & Machine Learning", "Data & Analytics", "Low-Level & Systems", "Creative & Design"],
@@ -90,9 +97,9 @@ const TRANSLATIONS = {
     location: "Regensburg, Germany",
     contact: "Get in touch ↗", role: "Role", socials: "Socials", techStack: "Tech Stack",
     timelineTitle: "Journey", currentLabel: "Ongoing",
-    projects: "Selected Projects", viewProject: "Open project ↗",
+    projects: "Selected Projects", viewProject: "Open project ↗", watchVideo: "Watch video ▶",
     projectCategories: ["Data Science", "Interface Design", "Brand Identity"],
-    statusWip: "In progress", statusSoon: "Coming soon", statusLive: "Live", progressLabel: "in progress",
+    statusWip: "In progress", statusSoon: "Coming soon", statusLive: "Live", statusPaused: "Paused – validated", statusDemo: "Video demo", progressLabel: "in progress",
   },
 };
 
@@ -410,6 +417,32 @@ const Timeline = () => {
   );
 };
 
+const PIPELINE_STEPS = [
+  { icon: Sparkles, label: "Claude API" },
+  { icon: Mic, label: "ElevenLabs" },
+  { icon: Clapperboard, label: "Pexels + moviepy" },
+  { icon: Video, label: "Output" },
+];
+
+const PipelineDiagram = ({ dimmed = false }) => (
+  <div className="flex items-center justify-center gap-1.5 sm:gap-3 px-4 w-full" style={{ opacity: dimmed ? 0.45 : 1, filter: dimmed ? "blur(1px)" : "none" }}>
+    {PIPELINE_STEPS.map((step, i) => (
+      <div key={step.label} className="flex items-center gap-1.5 sm:gap-3">
+        <div className="flex flex-col items-center gap-1.5">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
+            style={{ background: "rgba(255,255,255,0.22)", border: "1px solid rgba(255,255,255,0.45)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.5), 0 2px 10px rgba(0,0,0,0.10)" }}>
+            <step.icon size={20} strokeWidth={1.8} style={{ color: "rgba(255,255,255,0.95)" }} />
+          </div>
+          <span className="text-[9px] sm:text-[10px] font-semibold text-center leading-tight" style={{ color: "rgba(255,255,255,0.85)" }}>{step.label}</span>
+        </div>
+        {i < PIPELINE_STEPS.length - 1 && (
+          <ArrowRight size={14} strokeWidth={2} style={{ color: "rgba(255,255,255,0.55)", flexShrink: 0 }} />
+        )}
+      </div>
+    ))}
+  </div>
+);
+
 const ProjectCard = ({ project, category, delay }) => {
   const t = useLang();
   const [hovered, setHovered] = useState(false);
@@ -419,7 +452,10 @@ const ProjectCard = ({ project, category, delay }) => {
   const isWip   = project.status === "wip";
   const isSoon  = project.status === "soon";
   const isLive  = project.status === "live";
+  const isPaused = project.status === "paused";
+  const isDemo  = project.status === "demo";
   const isLocked = isWip || isSoon;
+  const isClickable = (isLive && project.projectUrl) || (isDemo && project.videoUrl);
 
   useEffect(() => {
     if (inView) {
@@ -430,6 +466,7 @@ const ProjectCard = ({ project, category, delay }) => {
 
   const handleClick = () => {
     if (isLive && project.projectUrl) window.open(project.projectUrl, "_blank", "noopener,noreferrer");
+    if (isDemo && project.videoUrl) window.open(project.videoUrl, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -443,7 +480,7 @@ const ProjectCard = ({ project, category, delay }) => {
         position: "relative",
         overflow: "hidden",
         width: "100%",
-        cursor: isLive ? "pointer" : "default",
+        cursor: isClickable ? "pointer" : "default",
         opacity: visible ? 1 : 0,
         transform: hovered ? "scale(1.022)" : "scale(1)",
         transition: `opacity 0.55s ease ${delay * 0.08}s, transform 0.3s cubic-bezier(0.22,1,0.36,1)`,
@@ -451,11 +488,15 @@ const ProjectCard = ({ project, category, delay }) => {
     >
       <div className="relative h-52 flex items-center justify-center"
         style={{ background: `linear-gradient(135deg, ${project.bgA}, ${project.bgB})`, overflow: "hidden" }}>
-        <motion.div
-          animate={{ scale: hovered && !isLocked ? 1.15 : 1, rotate: hovered && !isLocked ? 8 : 0, opacity: isLocked ? 0.45 : 0.85 }}
-          transition={{ duration: 0.5 }}
-          style={{ filter: isLocked ? "blur(1px)" : "none", color: "rgba(255,255,255,0.95)" }}
-        ><project.icon size={64} strokeWidth={1.5} /></motion.div>
+        {project.visual === "pipeline" ? (
+          <PipelineDiagram dimmed={isLocked} />
+        ) : (
+          <motion.div
+            animate={{ scale: hovered && !isLocked ? 1.15 : 1, rotate: hovered && !isLocked ? 8 : 0, opacity: isLocked ? 0.45 : 0.85 }}
+            transition={{ duration: 0.5 }}
+            style={{ filter: isLocked ? "blur(1px)" : "none", color: "rgba(255,255,255,0.95)" }}
+          ><project.icon size={64} strokeWidth={1.5} /></motion.div>
+        )}
 
         {isLocked && (
           <div className="absolute inset-0 flex items-center justify-center" style={{ background: "rgba(10,10,20,0.32)" }}>
@@ -466,7 +507,7 @@ const ProjectCard = ({ project, category, delay }) => {
           </div>
         )}
 
-        {isLive && (
+        {isClickable && (
           <AnimatePresence>
             {hovered && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}
@@ -474,7 +515,7 @@ const ProjectCard = ({ project, category, delay }) => {
                 <motion.span initial={{ y: 8, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 4, opacity: 0 }} transition={{ duration: 0.2, delay: 0.05 }}
                   className="px-5 py-2.5 rounded-2xl text-sm font-semibold text-white"
                   style={{ background: "rgba(255,255,255,0.18)", border: "1px solid rgba(255,255,255,0.40)" }}>
-                  {t.viewProject}
+                  {isLive ? t.viewProject : t.watchVideo}
                 </motion.span>
               </motion.div>
             )}
@@ -514,6 +555,19 @@ const ProjectCard = ({ project, category, delay }) => {
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold"
             style={{ background: "rgba(245,158,11,0.09)", border: "1px solid rgba(245,158,11,0.25)", color: "#b45309" }}>
             {t.statusSoon}
+          </span>
+        )}
+        {isPaused && (
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold"
+            style={{ background: "rgba(100,116,139,0.10)", border: "1px solid rgba(100,116,139,0.25)", color: "#475569" }}>
+            {t.statusPaused}
+          </span>
+        )}
+        {isDemo && (
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold"
+            style={{ background: "rgba(99,102,241,0.09)", border: "1px solid rgba(99,102,241,0.25)", color: "#4f46e5" }}>
+            <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "#4f46e5" }} />
+            {t.statusDemo}
           </span>
         )}
       </div>
